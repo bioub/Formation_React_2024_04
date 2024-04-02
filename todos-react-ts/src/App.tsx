@@ -1,8 +1,9 @@
 import './App.css';
 import TodoItem from './TodoItem';
+import { Todo } from './types';
 
 function App() {
-  const todos = [
+  const todos: Todo[] = [
     { id: 123, title: 'ABC', completed: false },
     { id: 456, title: 'DEF', completed: true },
     { id: 789, title: 'XYZ', completed: false },
