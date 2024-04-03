@@ -1,7 +1,8 @@
-import { FormEvent, MouseEvent, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useState } from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
 import { Todo } from './types';
+import { fetchTodos } from './api';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
@@ -12,6 +13,12 @@ function App() {
   const [newTodo, setNewTodo] = useState('ABC');
 
   const editingId = 789;
+
+  useEffect(() => {
+    fetchTodos().then((todos) => {
+      setTodos(todos);
+    });
+  }, []);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TodoItem from './TodoItem';
+import { fetchTodos } from './api';
 
 function App() {
   const [todos, setTodos] = useState([
@@ -11,6 +12,12 @@ function App() {
   const [newTodo, setNewTodo] = useState('ABC');
 
   const editingId = 789;
+
+  useEffect(() => {
+    fetchTodos().then((todos) => {
+      setTodos(todos);
+    });
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
