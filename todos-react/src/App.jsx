@@ -11,7 +11,7 @@ function App() {
   ]);
   const [newTodo, setNewTodo] = useState('ABC');
 
-  const editingId = 789;
+  const [editingId, setEditingId] = useState(789);
 
   useEffect(() => {
     fetchTodos().then((todos) => {
@@ -50,6 +50,14 @@ function App() {
     );
   }
 
+  function handleTodoDelete(todo) {
+    setTodos(todos.filter((t) => t.id !== todo.id));
+  }
+
+  function handleTodoUpdate(newTodo) {
+    setTodos(todos.map((t) => t.id === newTodo.id ? newTodo : t));
+  }
+
   return (
     <>
       <form className="todos-form" onSubmit={handleSubmit}>
@@ -72,6 +80,9 @@ function App() {
             key={todo.id}
             todo={todo}
             isEditing={todo.id === editingId}
+            onTodoDelete={handleTodoDelete}
+            onEditingIdChange={setEditingId}
+            onTodoUpdate={handleTodoUpdate}
           />
         ))}
       </div>
