@@ -3,12 +3,16 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Clock from './Clock'
+import Select from './Select'
+
+const names = ['Toto', 'Titi', 'Tata'];
 
 function App() {
   const [count, setCount] = useState(0)
   const [showClock, setShowClock] = useState(true);
-  const [delay, setDelay] = useState(1000)
-
+  const [delay, setDelay] = useState(1000);
+  const [name, setName] = useState('Titi');
+  
   return (
     <>
       <div>
@@ -34,6 +38,10 @@ function App() {
       <p>Delay : <input type="number" value={delay} onChange={(e) => setDelay(e.target.valueAsNumber)} /></p>
       <button onClick={() => setShowClock(!showClock)}>{showClock ? 'Hide' : 'Show'} Clock</button>
       {showClock && <Clock delay={delay} />}
+
+
+      <Select items={names} value={name} onValueChange={setName} />
+      <p>Prénom sélectionné : <span className="selected">{name}</span></p>
     </>
   )
 }
