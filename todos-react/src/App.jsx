@@ -51,6 +51,7 @@ function App() {
   }
 
   function handleTodoDelete(todo) {
+    // .filter pour garder tous les éléments sauf celui reçu en param
     setTodos(todos.filter((t) => t.id !== todo.id));
   }
 

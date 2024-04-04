@@ -3,6 +3,7 @@ import { useEffect } from "react";
 function TodoInputValue({ todo, onEditingIdChange, onTodoUpdate }) {
 
   useEffect(() => {
+    console.log('effect TodoInputValue');
     function handleWindowClick(event) {
       if (!event.target.classList.contains('TodoInputValue')) {
         onEditingIdChange(0);
