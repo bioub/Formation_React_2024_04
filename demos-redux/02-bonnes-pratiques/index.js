@@ -1,7 +1,7 @@
 import { legacy_createStore } from 'redux';
 import { reducer } from './reducer.js';
-import { incrementLikes, updateName } from './actions.js';
-import { likesSelector, nameSelector } from './selectors.js';
+import { addTodo, incrementLikes, updateName } from './actions.js';
+import { likesSelector, nameSelector, todosCompletedSelector } from './selectors.js';
 
 const store = legacy_createStore(reducer);
 
@@ -9,6 +9,7 @@ const store = legacy_createStore(reducer);
 store.subscribe(() => {
   console.log('name', nameSelector(store.getState()));
   console.log('likes', likesSelector(store.getState()));
+  console.log('todos completed', todosCompletedSelector(store.getState()));
 });
 
 
@@ -19,5 +20,8 @@ store.dispatch(incrementLikes());
 
 store.dispatch(updateName('Toto'));
 
-store.dispatch({ type: 'UPDATE_NEW_TODO', payload: 'ABCDE' });
-store.dispatch({ type: 'ADD_TODO', payload: { id: Math.random(), title: 'ABCDE', completed: false } });
+store.dispatch(updateName('ABCDE'));
+
+
+// store.dispatch(addTodo({ id: Math.random(), title: 'ABCDE', completed: false }));
+store.dispatch(addTodo('ABCDE'));

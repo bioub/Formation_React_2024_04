@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { INCREMENT_LIKES, UPDATE_NAME } from "./constants.js";
+import { ADD_TODO, INCREMENT_LIKES, UPDATE_NAME, UPDATE_NEW_TODO } from "./constants.js";
 
 const initialState = {
   home: {
@@ -33,9 +33,26 @@ function homeReducer(state = initialState.home, action) {
   }
 }
 
+function todosReducer(state = initialState.todos, action) {
+  switch (action.type) {
+    case UPDATE_NEW_TODO:
+      return {
+        ...state,
+        newTodo: action.payload,
+      };
+    case ADD_TODO:
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
+    default:
+      return state;
+  }
+}
+
 export const reducer = combineReducers({
   home: homeReducer,
-//  todos: todosReducer
+  todos: todosReducer
 });
 
 // export function reducer(state = initialState, action) {
