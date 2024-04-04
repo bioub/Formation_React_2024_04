@@ -1,5 +1,6 @@
 import {
   addTodo,
+  getTodos,
   incrementLikes,
   updateName,
   updateNewTodo,
@@ -46,5 +47,9 @@ export const todosReducer = createReducer(initialState.todos, (builder) => {
     })
     .addCase(addTodo, (state, action) => {
       state.items.push(action.payload);
+      state.newTodo = '';
+    })
+    .addCase(getTodos.fulfilled, (state, action) => {
+      state.items = action.payload;
     });
 });

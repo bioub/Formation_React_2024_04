@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import TodoItem from '../TodoItem';
 import { fetchTodos } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { itemsSelector, newTodoSelector } from '../store/selectors';
+import { addTodo, getTodos, updateNewTodo } from '../store/actions';
 
 function Todos() {
   /*
@@ -9,29 +12,25 @@ function Todos() {
   Utitiser dispatch pour écrire dans le store à la saisie dans le champs (updateNewTodo)
   et au submit du form (addTodo)
   */
-
-  const [todos, setTodos] = useState([
-    { id: 123, title: 'ABC', completed: false },
-    { id: 456, title: 'DEF', completed: true },
-    { id: 789, title: 'XYZ', completed: false },
-  ]);
-  const [newTodo, setNewTodo] = useState('ABC');
+  const todos = useSelector(itemsSelector);
+  const newTodo = useSelector(newTodoSelector);
+  const dispatch = useDispatch();
+  // const [todos, setTodos] = useState([
+  //   { id: 123, title: 'ABC', completed: false },
+  //   { id: 456, title: 'DEF', completed: true },
+  //   { id: 789, title: 'XYZ', completed: false },
+  // ]);
+  // const [newTodo, setNewTodo] = useState('ABC');
 
   const [editingId, setEditingId] = useState(789);
 
-  // useEffect(() => {
-  //   fetchTodos().then((todos) => {
-  //     setTodos(todos);
-  //   });
-  // }, []);
+  useEffect(() => {
+    dispatch(getTodos())
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
-    setTodos([
-      ...todos,
-      { id: Math.random(), title: newTodo, completed: false },
-    ]);
-    setNewTodo('');
+    dispatch(addTodo(newTodo));
   }
 
   // function handleToggleClick(event) {
@@ -77,7 +76,7 @@ function Todos() {
           type="text"
           className="todos-new-input"
           value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
+          onChange={(e) => dispatch(updateNewTodo(e.target.value))}
         />
         <button>+</button>
       </form>
