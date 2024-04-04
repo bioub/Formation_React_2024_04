@@ -9,9 +9,10 @@ const names = ['Toto', 'Titi', 'Tata'];
 
 function App() {
   const [count, setCount] = useState(0)
+  const [name, setName] = useState('Titi');
+
   const [showClock, setShowClock] = useState(true);
   const [delay, setDelay] = useState(1000);
-  const [name, setName] = useState('Titi');
   
   return (
     <>
